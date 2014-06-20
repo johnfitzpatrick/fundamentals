@@ -9,7 +9,11 @@ Upon completion of this course you will be able to:
 * Describe Chef’s various tools
 * Apply Chef’s primitives to solve your problems
 
-### Notes
+### NOTES
+
+### HANDOUT
+
+$ knife cookbook create apache
 
 ## How to Learn Chef
 
@@ -17,15 +21,15 @@ Upon completion of this course you will be able to:
 * Chef provides a framework for solving those problems
 * Our job is to work together to teach you how to express solutions to your problems with Chef
 
-### Handout
-
-
 ### Notes
 
 Hammer home that the students know how to run their infrastructure
 YOU are the best person capable of automating your environment
 Chef training is about understanding the framework Chef can provide to solving those problems
 
+### HANDOUT
+
+$ knife cookbook upload apache
 
 
 
@@ -44,3 +48,8 @@ We will get you fluent
 We will do it in a way that maps to what experts do
 We will teach you how to find and use the resources that will make you an expert in time
 
+
+
+# Handout
+
+...
