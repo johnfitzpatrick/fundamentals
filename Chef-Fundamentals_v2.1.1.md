@@ -82,7 +82,6 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
 ```$ ls -la cookbooks/apache```
 
 **cookbooks/apache/recipes/default.rb**
-
 ```ruby
 package "httpd" do
   action :install
