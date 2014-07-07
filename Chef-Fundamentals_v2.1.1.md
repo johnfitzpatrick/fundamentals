@@ -405,7 +405,6 @@ default["apache"]["sites"]["bears"]  = { "port" => 81 }
 
 ```ruby
 cookbooks/apache/recipes/default.rb
-<!-- (See https://gist.github.com/6781185) -->
 
 package "httpd" do
   action :install
@@ -444,10 +443,11 @@ node["apache"]["sites"].each do |site_name, site_data|
   end
 end
 ```
+<!-- (See https://gist.github.com/6781185) -->
+
 
 ```ruby
 cookbooks/apache/templates/default/custom.erb
-<!-- (See https://gist.github.com/8955103) -->
 
 <% if @port != 80 -%>
   Listen <%= @port %>
@@ -469,10 +469,10 @@ cookbooks/apache/templates/default/custom.erb
   </Directory>
 </VirtualHost>
 ```
+<!-- (See https://gist.github.com/8955103) -->
 
 ```html
 cookbooks/apache/templates/default/index.html.erb
-<!-- (See https://gist.github.com/2866421) -->
 
 <html>
   <body>
@@ -482,6 +482,7 @@ cookbooks/apache/templates/default/index.html.erb
   </body>
 </html>
 ```
+<!-- (See https://gist.github.com/2866421) -->
 
 *Use knife upload the 'apache' cookbook (command hidden)*
 <!-- $ knife cookbook upload apache -->
