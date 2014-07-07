@@ -11,9 +11,9 @@
 
 ```$ ls .chef``` 
 
-```chef-repo/.chef/knife.rb```
-
 ```ruby
+chef-repo/.chef/knife.rb
+
 package "httpd" do
   action :install
 end
