@@ -1,6 +1,6 @@
 # Workstation Setup
-Install Chef - http://www.getchef.com/chef/install
-Get Chef - http://www.getchef.com
+- Install Chef - http://www.getchef.com/chef/install
+- Get Chef - http://www.getchef.com
 
 ```$ curl -L http://www.getchef.com/chef/install.sh | sudo bash```
 
@@ -12,7 +12,7 @@ Get Chef - http://www.getchef.com
 
 ```chef-repo/.chef/knife.rb```
 
-```
+```ruby
 current_dir = File.dirname(__FILE__)
 log_level              :info
 log_location           STDOUT
@@ -32,23 +32,12 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
 
 ```$ knife help list```
 
-Bonus Exercises
-Exercise #1
-Situation:  
-You want to keep your personal machines separate from your training environment.
-Tasks:
-•	Create a second organization in your hosted Chef account called 
-“<username>-home”. 
-•	Create a new Chef repo directory named “chef-repo-personal” and set it up to connect to your new organization.
-•	Create an “editor-test” client in your new personal organization.  Run “knife client list”.  Now change back into your training organization’s repo and run “knife client list” again.  What’s different?
-•	View your different organizations at http://manage.opscode.com 
-•	Don’t forget to change back into your training repo before we continue.
  
-Organization Setup
-Click the "Administration" tab, 
-Select the appropriate Organization
-Click "Invite User" from the left menu
-Enter your classmate's 'Chef Username' and click Invite
+# Organization Setup
+- Click the "Administration" tab, 
+- Select the appropriate Organization
+- Click "Invite User" from the left menu
+- Enter your classmate's 'Chef Username' and click Invite
  
 
 Click the notification, select the Organization and click 'Accept'
