@@ -545,10 +545,15 @@ Basically you just add an “image” attribute for each site inside the default
 # Search
 
 ```$ knife search node "*:*"```
+
 ```$ knife search node "ipaddress:10.*"```
+
 ```$ knife search node "*:*" -a ipaddress```
+
 ```$ knife search node "ipaddress:10.*" -a ipaddress```
+
 ```$ knife search node "ipaddress:10* AND platform:centos"```
+
 ```$ knife search node "ipaddress:[10.0.* TO 10.2.*]"```
 
 cookbooks/apache/recipes/ip-logger.rb
