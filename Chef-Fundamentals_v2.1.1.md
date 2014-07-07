@@ -118,22 +118,32 @@ end
 
  
 # Introducing the Node Object
-$ knife node list
-$ knife client list
-$ knife node show node1
-chef@node1:~$ sudo ohai | less
-$ knife node show node1 -l
-$ knife node show node1 -Fj
-$ knife node show node1 -a fqdn 
-$ knife search node "*:*" -a fqdn
+
+```$ knife node list```
+
+```$ knife client list```
+
+```$ knife node show node1```
+
+```chef@node1:~$ sudo ohai | less```
+
+```$ knife node show node1 -l```
+
+```$ knife node show node1 -Fj```
+
+```$ knife node show node1 -a fqdn```
+
+```$ knife search node "*:*" -a fqdn```
 
 
  
-Node Attributes
+# Node Attributes
 
+```ruby
 cookbooks/apache/attributes/default.rb
-default["apache"]["indexfile"] = "index1.html"
 
+default["apache"]["indexfile"] = "index1.html"
+```
 cookbooks/apache/files/default/index1.html
 <html>
  <body>
