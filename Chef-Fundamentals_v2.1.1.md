@@ -748,11 +748,14 @@ default_attributes({
 
 - Replace recipe[apache] with role[webserver] in run list
 <image>
-  
-chef@node1:~$ sudo chef-client
-$ knife search node "role:webserver" -a apache.sites
 
+```chef@node1:~$ sudo chef-client```
+
+```$ knife search node "role:webserver" -a apache.sites```
+
+```ruby
 roles/webserver.rb
+
 name "webserver"
 description "Web Server"
 run_list "recipe[apache]"
@@ -768,23 +771,32 @@ default_attributes({
     }
   }
 })
+```
 
-Use knife to upload this webserver role & rerun chef-client (commands hidden)
-$ knife role from file webserver.rb
-opscode@node1:~$ sudo chef-client
-Use knife to Display the 'apache.sites' attribute on all nodes with webserver role (command hidden)$ knife search node "role:webserver" -a apache.sites
+*Use knife to upload this webserver role & rerun chef-client (commands hidden)*
+<!-- $ knife role from file webserver.rb -->
+
+```opscode@node1:~$ sudo chef-client```
+
+*Use knife to Display the 'apache.sites' attribute on all nodes with webserver role (command hidden)*
+<!-- $ knife search node "role:webserver" -a apache.sites -->
 
 Edit the 'base' role (command hidden)
-roles/base.rb
+<!-- roles/base.rb -->
+
+```ruby
 name "base"
 description "Base Server Role"
 run_list "recipe[motd]", "recipe[users]"
+```
 
-Upload the 'base' role to Chef server (command hidden)$ knife role from file base.rb
+*Upload the 'base' role to Chef server (command hidden)*
+<!-- $ knife role from file base.rb -->
 
-Edit the 'webserver' role (command hidden)
+*Edit the 'webserver' role (command hidden)*
+<!-- roles/webserver.rb -->
 
-roles/webserver.rb
+```ruby
 name "webserver"
 description "Web Server"
 run_list "role[base]", "recipe[apache]"
@@ -800,12 +812,13 @@ default_attributes({
     }
   }
 })
+```
 
-Upload the 'webserver' role to Chef server (command hidden)
+*Upload the 'webserver' role to Chef server (command hidden)*
+<!-- $ knife role from file webserver.rb -->
 
-$ knife role from file webserver.rb
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
 
 
 <!-- Bonus Exercises
@@ -821,25 +834,34 @@ Just create an ntpserver.rb file inside of ./roles, and edit appropriately.  Run
  -->
  
 # Environments
-$ knife cookbook show apache
-$ knife environment list
-$ mkdir environments
+```$ knife cookbook show apache```
 
+```$ knife environment list```
+
+```$ mkdir environments```
+
+```ruby
 environments/dev.rb
+
 name "dev"
 description "For developers!"
 cookbook "apache", "= 0.2.0"
+```
 
-$ knife environment from file dev.rb
-$ knife environment show dev
+```$ knife environment from file dev.rb```
 
-Use the UI to change your node’s environment to "dev"
- 
+```$ knife environment show dev```
 
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
+- Use the UI to change your node’s environment to "dev"
+<image>
 
+
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
+
+```ruby
 environments/production.rb
+
 name "production"
 description "For Prods!"
 cookbook "apache", "= 0.1.0"
@@ -848,16 +870,18 @@ override_attributes({
    "in_scope" => true
  }
 })
+```
 
-Use knife to upload this production environment (command hidden)
-$ knife environment from file production.rb
+*Use knife to upload this production environment (command hidden)*
+<!-- $ knife environment from file production.rb -->
 
-Use the UI to change your node’s environment to "production" (Screenshot hidden)
+*Use the UI to change your node’s environment to "production" (Screenshot hidden)*
+<!-- <image hidden> -->
  
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
 
-Bonus Exercises
+<!-- Bonus Exercises
 Exercise #1
 Situation:  
 Mordac from the security team has insisted that there be a completely separate PCI dev environment.
@@ -866,19 +890,21 @@ Tasks:
 • Create a new environment called “dev_pci”.  It should be identical to the production environment, but with Apache version 0.2.0 instead of 0.1.0.  Try putting your target node in this environment to see what happens. 
 
 Exercise #1 solution:
-Just create an ntpserver.rb file inside of ./roles, and edit appropriately.  Run “knife role from file ntpserver.rb” when done.
-
-
-
+Just create an ntpserver.rb file inside of ./roles, and edit appropriately.  Run “knife role from file ntpserver.rb” when done. -->
 
  
-Using Community Cookbooks
-$ knife cookbook site search chef-client
-$ knife cookbook site show chef-client
-$ knife cookbook site download chef-client
-$ tar -zxvf chef-client*.tar.gz -C cookbooks/
+#Using Community Cookbooks
+```$ knife cookbook site search chef-client```
 
+```$ knife cookbook site show chef-client```
+
+```$ knife cookbook site download chef-client```
+
+```$ tar -zxvf chef-client*.tar.gz -C cookbooks/```
+
+```ruby
 cookbooks/chef-client/recipes/delete_validation.rb
+
 unless chef_server?
   file Chef::Config[:validation_key] do
     action :delete
@@ -886,13 +912,19 @@ unless chef_server?
     only_if { ::File.exists?(Chef::Config[:client_key]) }
   end
 end
+```
 
+```ruby
 roles/base.rb
+
 name "base"
 description "Base Server Role"
 run_list "recipe[chef-client::delete_validation]", "recipe[motd]", "recipe[users]"
+```
 
+```ruby
 cookbooks/chef-client/recipes/default.rb
+
 include_recipe "chef-client::service"
 
 cookbooks/chef-client/recipes/service.rb
@@ -916,50 +948,73 @@ if supported_init_styles.include? init_style
 else
   log "Could not determine service init style, manual intervention required to start up the chef-client service."
 end
-Use knife to upload the 'chef-client' cookbook (command hidden)
-Use knife to download the 'cron' cookbook (command hidden)
-untar the 'cron' cookbook into the cookbooks directory (command hidden)
-Use knife to upload the 'cron' cookbook (command hidden)
-Use knife to upload the 'chef-client' cookbook (command hidden)
-Use knife to download the 'logrotate' cookbook (command hidden)
-untar the 'logrotate' cookbook into the cookbooks directory (command hidden)
-Use knife to upload the 'logrotate' cookbook (command hidden)
-Use knife to upload the 'chef-client' cookbook (command hidden)
-$ knife cookbook upload chef-client
-$ knife cookbook site download cron
-$ tar -zxvf cron*.tar.gz -C cookbooks/
-$ knife cookbook upload cron
-$ knife cookbook upload chef-client
-$ knife cookbook site download logrotate
-$ tar -zxvf logrotate*.tar.gz -C cookbooks/
-$ knife cookbook upload logrotate
-$ knife cookbook upload chef-client
+```
 
-Edit the 'base' role (command hidden)
-roles/base.rb
+*Use knife to upload the 'chef-client' cookbook (command hidden)*
+<!-- $ knife cookbook upload chef-client -->
+
+*Use knife to download the 'cron' cookbook (command hidden)*
+<!-- $ knife cookbook site download cron -->
+
+*untar the 'cron' cookbook into the cookbooks directory (command hidden)*
+<!-- $ tar -zxvf cron*.tar.gz -C cookbooks/ -->
+
+*Use knife to upload the 'cron' cookbook (command hidden)*
+<!-- $ knife cookbook upload cron -->
+
+*Use knife to upload the 'chef-client' cookbook (command hidden)*
+<!-- $ knife cookbook upload chef-client -->
+
+*Use knife to download the 'logrotate' cookbook (command hidden)*
+<!-- $ knife cookbook site download logrotate -->
+
+*untar the 'logrotate' cookbook into the cookbooks directory (command hidden)*
+<!-- $ tar -zxvf logrotate*.tar.gz -C cookbooks/ -->
+
+*Use knife to upload the 'logrotate' cookbook (command hidden)*
+<!-- $ knife cookbook upload chef-client -->
+
+*Use knife to upload the 'chef-client' cookbook (command hidden)*
+<!-- $ knife cookbook upload logrotate -->
+
+*Edit the 'base' role (command hidden)*
+<!-- roles/base.rb -->
+
+```ruby
 name "base"
 description "Base Server Role"
 run_list "recipe[chef-client::delete_validation]", "recipe[chef-client]", "recipe[motd]", "recipe[users]"
+```
 
-Upload the 'base' role to Chef server (command hidden)$ knife role from file base.rb
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
-Check the 'chef-cllient' service is running (command hidden)opscode@node1$ ps awux | grep chef-client
+*Upload the 'base' role to Chef server (command hidden)*
+<!-- $ knife role from file base.rb -->
 
-Use knife to download the 'ntp' cookbook (command hidden)
-untar the 'ntp' cookbook into the cookbooks directory (command hidden)
-Use knife to upload the 'ntp' cookbook (command hidden)
-$ knife cookbook site download ntp
-$ tar -zxvf ntp*.tar.gz -C cookbooks/
-$ knife cookbook upload ntp
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
 
-Edit the 'base' role (command hidden)
-roles/base.rb
+*Check the 'chef-cllient' service is running (command hidden)*
+<!-- opscode@node1$ ps awux | grep chef-client -->
+
+*Use knife to download the 'ntp' cookbook (command hidden)*
+<!-- $ knife cookbook site download ntp -->
+
+*untar the 'ntp' cookbook into the cookbooks directory (command hidden)*
+<!-- $ tar -zxvf ntp*.tar.gz -C cookbooks/ -->
+
+*Use knife to upload the 'ntp' cookbook (command hidden)*
+<!-- $ knife cookbook upload ntp -->
+
+*Edit the 'base' role (command hidden)*
+<!-- roles/base.rb -->
+
+```ruby
 name "base"
 description "Base Server Role"
 run_list "recipe[chef-client::delete_validation]", "recipe[chef-client]", "recipe[ntp]", "recipe[motd]", "recipe[users]"
+```
 
-Upload the 'base' role to Chef server (command hidden)$ knife role from file base.rb
+*Upload the 'base' role to Chef server (command hidden)*
+<!-- $ knife role from file base.rb -->
 
 <!-- Bonus Exercises
 Exercise #1
