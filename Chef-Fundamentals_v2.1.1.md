@@ -15,16 +15,16 @@
 chef-repo/.chef/knife.rb
 
 current_dir = File.dirname(__FILE__)
-log_level              :info
-log_location           STDOUT
-node_name              "USERNAME"
-client_key             "#{current_dir}/USERNAME.pem"
-validation_client_name "ORGNAME-validator"
-validation_key         "#{current_dir}/ORGNAME-validator.pem"
-chef_server_url     "https://api.opscode.com/organizations/ORGNAME"
-cache_type             'BasicFile'
-cache_options( :path =>"#{ENV['HOME']}/.chef/checksums" )
-cookbook_path          ["#{current_dir}/../cookbooks"]
+log_level               :info
+log_location            STDOUT
+node_name               "USERNAME"
+client_key              "#{current_dir}/USERNAME.pem"
+validation_client_name  "ORGNAME-validator"
+validation_key          "#{current_dir}/ORGNAME-validator.pem"
+chef_server_url         "https://api.opscode.com/organizations/ORGNAME"
+cache_type              'BasicFile'
+cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
+cookbook_path           ["#{current_dir}/../cookbooks"]
 ```
 
 ```$ knife --version```
@@ -400,12 +400,12 @@ version          "0.2.0"
 cookbooks/apache/attributes/default.rb
 
 default["apache"]["sites"]["clowns"] = { "port" => 80 }
-default["apache"]["sites"]["bears"] = { "port" => 81 }
+default["apache"]["sites"]["bears"]  = { "port" => 81 }
 ```
 
 ```ruby
 cookbooks/apache/recipes/default.rb
-(See https://gist.github.com/6781185)
+<!-- (See https://gist.github.com/6781185) -->
 
 package "httpd" do
   action :install
@@ -447,7 +447,7 @@ end
 
 ```ruby
 cookbooks/apache/templates/default/custom.erb
-(See https://gist.github.com/8955103)
+<!-- (See https://gist.github.com/8955103) -->
 
 <% if @port != 80 -%>
   Listen <%= @port %>
@@ -472,7 +472,7 @@ cookbooks/apache/templates/default/custom.erb
 
 ```html
 cookbooks/apache/templates/default/index.html.erb
-(See https://gist.github.com/2866421)
+<!-- (See https://gist.github.com/2866421) -->
 
 <html>
   <body>
