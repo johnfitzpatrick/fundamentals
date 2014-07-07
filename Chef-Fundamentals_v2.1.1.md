@@ -201,7 +201,7 @@ cookbooks/apache/files/default/index2.html
 
 # Attributes, Templates, and Cookbook Dependencies
 
-* Use knife to create a cookbook called 'motd' (command hidden) *
+*Use knife to create a cookbook called 'motd' (command hidden)*
 
 cookbooks/motd/attributes/default.rb
 default["motd"]["company"] = "Chef"
