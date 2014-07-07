@@ -32,7 +32,7 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
 
 ```$ knife help list```
 
- 
+
 # Organization Setup
 - Click the "Administration" tab, 
 - Select the appropriate Organization
@@ -56,9 +56,9 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
  
 # Node Setup
 
-```$ knife bootstrap <EXTERNAL_ADDRESS> --sudo -x chef -P chef -N "node1"
+```$ knife bootstrap <EXTERNAL_ADDRESS> --sudo -x chef -P chef -N "node1"```
 
-```$ ssh chef@IPADDRESS
+```$ ssh chef@IPADDRESS```
 
 ```chef@node1:~$ ls /etc/chef```
 
@@ -74,31 +74,16 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
 
 <image>
 
-Bonus Exercises
-Exercise #1
-Situation:  
-A junior admin accidentally deleted client.pem.  Your job is to repair the damage.
-Tasks:
-•	Delete /etc/chef/client.pem from your target node and run 
-“sudo chef-client”.  What happens?
-•	How can you fix the target host so it can communicate with the server again?  (Hint:  Every node also has a client)
-
-Exercise #2
-Situation:  
-Your target node is not authenticating to the server and you’re not sure why.
-Tasks:
-•	Set the time on your target to midnight with this command:  
-date +%T -s "00:00:00"
-•	Run “sudo chef-client”.  What happens?  Why?
-•	Correct the time with this command:  ntpdate pool.ntp.org
-
  
-Chef Resources and Recipes 
+```# Chef Resources and Recipes```
 
-$ knife cookbook create apache
-$ ls -la cookbooks/apache
+```$ knife cookbook create apache```
 
-cookbooks/apache/recipes/default.rb
+```$ ls -la cookbooks/apache```
+
+```cookbooks/apache/recipes/default.rb```
+
+```ruby
 package "httpd" do
   action :install
 end
@@ -111,35 +96,26 @@ cookbook_file "/var/www/html/index.html" do
   source "index.html"
   mode "0644"
 end
+```
 
-cookbooks/apache/files/default/index.html
+```cookbooks/apache/files/default/index.html```
+
+```html
 <html>
 <body>
   <h1>Hello, world!</h1>
 </body>
 </html>
+```
 
-$ knife cookbook upload apache
-$ knife node run_list add node1 "recipe[apache]"
-chef@node1:~$ sudo chef-client
+```$ knife cookbook upload apache```
 
-Bonus Exercises
-Exercise #1
-Situation:  
-Your boss wants all webservers running CentOS to  have a homepage that says “Hello CentOS World”
-Tasks:
-•	Set up a custom index.html file that will *only* be used on  servers running Ubuntu.  (Substitute with ubuntu if you like!)
+```$ knife node run_list add node1 "recipe[apache]"```
 
-Exercise #2
-Situation:  
-Your web developer is complaining that his web application is not showing the latest content, and she wants the web server to be restarted when the content is updated.
-Tasks:
-•	Make a small change to the index.html file you created in Exercise #1
-•	In your default recipe, use the “notifies” notification to tell the apache2 service to restart whenever index.html is updated.  Don’t forget to re-upload your apache cookbook before running chef-client on the target.
-
+```chef@node1:~$ sudo chef-client```
 
  
-Introducing the Node Object
+# Introducing the Node Object
 $ knife node list
 $ knife client list
 $ knife node show node1
