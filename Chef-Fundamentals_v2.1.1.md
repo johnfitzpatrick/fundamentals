@@ -100,9 +100,10 @@ cookbook_file "/var/www/html/index.html" do
 end
 ```
 
-```cookbooks/apache/files/default/index.html```
 
 ```html
+cookbooks/apache/files/default/index.html
+
 <html>
 <body>
   <h1>Hello, world!</h1>
@@ -144,7 +145,10 @@ cookbooks/apache/attributes/default.rb
 
 default["apache"]["indexfile"] = "index1.html"
 ```
+
+```html
 cookbooks/apache/files/default/index1.html
+
 <html>
  <body>
   <h1>Hello, world!</h1>
@@ -152,24 +156,34 @@ cookbooks/apache/files/default/index1.html
     <p>We configured this in the attributes file</p>
  </body>
 </html>
+```
 
+```ruby
 cookbooks/apache/recipes/default.rb
+
 cookbook_file "/var/www/html/index.html" do
   source node["apache"]["indexfile"]
   mode "0644"
 end
+```
 
-$ knife cookbook upload apache
-chef@node1:~$ sudo chef-client
+```$ knife cookbook upload apache```
 
+```chef@node1:~$ sudo chef-client```
+
+```ruby
 cookbooks/apache/recipes/default.rb
+
 node.default["apache"]["indexfile"] = "index2.html"
 cookbook_file "/var/www/html/index.html" do
   source node["apache"]["indexfile"]
   mode "0644"
 end
+```
 
+```html
 cookbooks/apache/files/default/index2.html
+
 <html>
  <body>
   <h1>Hello, world!</h1>
@@ -177,11 +191,15 @@ cookbooks/apache/files/default/index2.html
     <p>We configured this in the recipe</p>
  </body>
 </html>
+```
 
-$ knife cookbook upload apache
-chef@node1:~$ sudo chef-client
+
+```$ knife cookbook upload apache```
+
+```chef@node1:~$ sudo chef-client```
  
-Attributes, Templates, and Cookbook Dependencies
+
+# Attributes, Templates, and Cookbook Dependencies
 
 Use knife to create a cookbook called 'motd' (command hidden)
 
