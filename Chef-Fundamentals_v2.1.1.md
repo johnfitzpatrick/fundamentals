@@ -14,6 +14,10 @@
 ```chef-repo/.chef/knife.rb```
 
 ```ruby
+package "httpd" do
+  action :install
+end
+
 current_dir = File.dirname(__FILE__)
 log_level              :info
 log_location           STDOUT
