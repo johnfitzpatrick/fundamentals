@@ -26,15 +26,11 @@ cache_options( :path =>"#{ENV['HOME']}/.chef/checksums" )
 cookbook_path          ["#{current_dir}/../cookbooks"]
 ```
 
-```ruby
-name "base"
-description "Base Server Role"
-run_list "recipe[chef-client::delete_validation]", "recipe[motd]", "recipe[users]"
-```
+```$ knife --version```
 
-$ knife --version
-$ knife client list
-$ knife help list
+```$ knife client list```
+
+```$ knife help list```
 
 Bonus Exercises
 Exercise #1
