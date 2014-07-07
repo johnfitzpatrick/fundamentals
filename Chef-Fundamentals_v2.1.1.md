@@ -83,8 +83,9 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
 
 
 
-cookbooks/apache/recipes/default.rb
 ```ruby
+cookbooks/apache/recipes/default.rb
+
 package "httpd" do
   action :install
 end
