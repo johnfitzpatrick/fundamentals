@@ -38,28 +38,41 @@ cookbook_path          ["#{current_dir}/../cookbooks"]
 - Select the appropriate Organization
 - Click "Invite User" from the left menu
 - Enter your classmate's 'Chef Username' and click Invite
- 
 
-Click the notification, select the Organization and click 'Accept'
- 
+<image>
 
-Select your classmate's organization from the drop down list and peruse their org
- 
+- Click the notification, select the Organization and click 'Accept'
 
-Now either 'Leave Organization' you've been invited into, or remove your classmate from your organization
+<image>
+
+- Select your classmate's organization from the drop down list and peruse their org
+
+<image>
+
+- Now either 'Leave Organization' you've been invited into, or remove your classmate from your organization
+
+<image>
  
  
-Node Setup
-$ knife bootstrap <EXTERNAL_ADDRESS> --sudo -x chef -P chef -N "node1"
-$ ssh chef@IPADDRESS
-chef@node1:~$ ls /etc/chef
-chef@node1:~$ which chef-client
-chef@node1:~$ cat /etc/chef/client.rb
-chef@node1:~$ sudo vi /etc/chef/client.rb
-Set log_level to :info
+# Node Setup
 
-View Node on Chef Server 
+```$ knife bootstrap <EXTERNAL_ADDRESS> --sudo -x chef -P chef -N "node1"
 
+```$ ssh chef@IPADDRESS
+
+```chef@node1:~$ ls /etc/chef```
+
+```chef@node1:~$ which chef-client```
+
+```chef@node1:~$ cat /etc/chef/client.rb```
+
+```chef@node1:~$ sudo vi /etc/chef/client.rb```
+
+```Set log_level to :info```
+
+- View Node on Chef Server 
+
+<image>
 
 Bonus Exercises
 Exercise #1
