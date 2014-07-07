@@ -305,11 +305,11 @@ cookbooks/pci/attributes/default.rb
 default["pci"]["in_scope"] = true
 ```
 
-*Use knife upload the 'pci' cookbook (command hidden)
+*Use knife upload the 'pci' cookbook (command hidden)*
 <!-- $ knife cookbook upload pci -->
 
 
- *Use knife add 'recipe[motd]' to node1's run list (command hidden)
+ *Use knife add 'recipe[motd]' to node1's run list (command hidden)*
 <!-- $ knife node run_list add node1 "recipe[motd]" -->
 
 
@@ -483,25 +483,28 @@ cookbooks/apache/templates/default/index.html.erb
 </html>
 ```
 
-Use knife upload the 'apache' cookbook (command hidden)
-$ knife cookbook upload apache
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
+*Use knife upload the 'apache' cookbook (command hidden)*
+<!-- $ knife cookbook upload apache -->
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
 
-Troubleshoot the failure
+<!-- - Troubleshoot the failure
 
+```ruby
 cookbooks/apache/templates/default/custom.erb
+
   <Directory <%= @document_root %>>
+```
 
-opscode@node1:~$ sudo chef-client
+```opscode@node1:~$ sudo chef-client```
 
-cookbooks/apache/recipes/default.rb
-Move 'service' resource to end of recipe
+*cookbooks/apache/recipes/default.rb*
+- Move 'service' resource to end of recipe
 
-opscode@node1:~$ sudo chef-client
+```opscode@node1:~$ sudo chef-client``` -->
 
 
-Bonus Exercises
+<!-- Bonus Exercises
 Exercise #1
 Situation:  
 Someone borked your Apache cookbook, and now Apache won’t start properly.  
@@ -536,17 +539,17 @@ Simply edit the ./cookbooks/apache/attributes/default.rb, adding a ponies line u
 
 Exercise #3  solution:
 I posted it here:  https://gist.github.com/scarolan/6091430
-Basically you just add an “image” attribute for each site inside the default attributes file.
+Basically you just add an “image” attribute for each site inside the default attributes file. -->
 
  
-Search
+# Search
 
-$ knife search node "*:*"
-$ knife search node "ipaddress:10.*"
-$ knife search node "*:*" -a ipaddress
-$ knife search node "ipaddress:10.*" -a ipaddress
-$ knife search node "ipaddress:10* AND platform:centos"
-$ knife search node "ipaddress:[10.0.* TO 10.2.*]"
+```$ knife search node "*:*"```
+```$ knife search node "ipaddress:10.*"```
+```$ knife search node "*:*" -a ipaddress```
+```$ knife search node "ipaddress:10.*" -a ipaddress```
+```$ knife search node "ipaddress:10* AND platform:centos"```
+```$ knife search node "ipaddress:[10.0.* TO 10.2.*]"```
 
 cookbooks/apache/recipes/ip-logger.rb
 search("node","platform:centos").each do |server|
@@ -766,7 +769,7 @@ Rerun 'chef-client' on node1 (command hidden)
 opscode@node1:~$ sudo chef-client
 
 
-Bonus Exercises
+<!-- Bonus Exercises
 Exercise #1
 Situation:  
 You need a dedicated NTP server inside the PCI environment to sync the clocks on all your hosts.
@@ -776,9 +779,9 @@ Tasks:
 
 Exercise #1 solution:
 Just create an ntpserver.rb file inside of ./roles, and edit appropriately.  Run “knife role from file ntpserver.rb” when done.
-
+ -->
  
-Environments
+# Environments
 $ knife cookbook show apache
 $ knife environment list
 $ mkdir environments
@@ -919,7 +922,7 @@ run_list "recipe[chef-client::delete_validation]", "recipe[chef-client]", "recip
 
 Upload the 'base' role to Chef server (command hidden)$ knife role from file base.rb
 
-Bonus Exercises
+<!-- Bonus Exercises
 Exercise #1
 Situation:  
 You need to sync all your hosts in with specific NTP servers.
@@ -958,18 +961,18 @@ Then in an ntpserver.rb role that is applied to NTP servers (e.g., time.int.exam
         "peers" => ["time0.int.example.org", "time1.int.example.org"],
         "restrictions" => ["10.0.0.0 mask 255.0.0.0 nomodify notrap"]
       }
-    )
+    ) -->
 
 
  
-Just Enough Ruby for Chef
+# Just Enough Ruby for Chef
 
-Bonus Exercises
+<!-- Bonus Exercises
 Exercise #1
 Situation:  
 You need to learn more Ruby because you want to be a Chef ninja.
 Tasks:
 • Sign up for an account on codeacademy.com and start doing the exercises in the Ruby track.  http://www.codecademy.com/tracks/ruby
-
+ -->
 
 
