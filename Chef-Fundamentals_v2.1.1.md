@@ -2,13 +2,13 @@
 Install Chef - http://www.getchef.com/chef/install
 Get Chef - http://www.getchef.com
 
-`$ curl -L http://www.getchef.com/chef/install.sh | sudo bash`
-`$ cd chef-repo`
-`$ ls -al`
-`$ ls .chef`
+```$ curl -L http://www.getchef.com/chef/install.sh | sudo bash```
+```$ cd chef-repo```
+```$ ls -al```
+```$ ls .chef``` 
 
-`chef-repo/.chef/knife.rb`
-`ruby
+```chef-repo/.chef/knife.rb```
+```ruby
 current_dir = File.dirname(__FILE__)
 log_level              :info
 log_location           STDOUT
@@ -20,7 +20,7 @@ chef_server_url     "https://api.opscode.com/organizations/ORGNAME"
 cache_type             'BasicFile'
 cache_options( :path =>"#{ENV['HOME']}/.chef/checksums" )
 cookbook_path          ["#{current_dir}/../cookbooks"]
-`
+```
 
 $ knife --version
 $ knife client list
