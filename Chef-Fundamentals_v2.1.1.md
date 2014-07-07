@@ -556,28 +556,36 @@ Basically you just add an “image” attribute for each site inside the default
 
 ```$ knife search node "ipaddress:[10.0.* TO 10.2.*]"```
 
+```ruby
 cookbooks/apache/recipes/ip-logger.rb
+
 search("node","platform:centos").each do |server|
-log "The CentOS servers in your organization have the following FQDN/IP Addresses:- #{server["fqdn"]}/#{server["ipaddress"]}"
+  log "The CentOS servers in your organization have the following FQDN/IP Addresses:- #{server["fqdn"]}/#{server["ipaddress"]}"
 end
+```
 
-Use knife upload the 'apache' cookbook (command hidden)
-$ knife cookbook upload apache
+*Use knife upload the 'apache' cookbook (command hidden)*
+<!-- $ knife cookbook upload apache -->
 
-Add the recipe ' apache::ip-logger' to node1's run list (command hidden)
-$ knife node run_list add node1 'recipe[apache::ip-logger]'
+*Add the recipe ' apache::ip-logger' to node1's run list (command hidden)*
+<!-- $ knife node run_list add node1 'recipe[apache::ip-logger]' -->
 
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
 
-Remove the recipe ' apache::ip-logger' from node1's run list (command hidden)
-$ knife node run_list remove node1 'recipe[apache::ip-logger]'
+*Remove the recipe ' apache::ip-logger' from node1's run list (command hidden)*
+<!-- $ knife node run_list remove node1 'recipe[apache::ip-logger]' -->
  
-Recipe Inclusion, Data Bags, and Search
-$ mkdir –p data_bags/users
-$ knife data_bag create users
 
+
+# Recipe Inclusion, Data Bags, and Search
+```$ mkdir –p data_bags/users```
+
+```$ knife data_bag create users```
+
+```ruby
 data_bags/users/bobo.json
+
 {
   "id": "bobo",
   "comment": "Bobo T. Clown",
@@ -586,10 +594,14 @@ data_bags/users/bobo.json
   "home": "/home/bobo",
   "shell": "/bin/bash"
 }
+```
 
-$ knife data_bag from file users bobo.json
+```$ knife data_bag from file users bobo.json```
 
-Create another user in the users data bag called 'frank' (command hidden)data_bags/users/frank.json
+*Create another user in the users data bag called 'frank' (command hidden)*
+<!-- data_bags/users/frank.json -->
+
+```ruby
 {
   "id": "frank",
   "comment": "Frank Belson",
@@ -598,33 +610,42 @@ Create another user in the users data bag called 'frank' (command hidden)data_ba
   "home": "/home/frank",
   "shell": "/bin/bash"
 }
+```
 
-Use knife to upload frank's data_bag item(command hidden)
-$ knife data_bag from file users frank.json
-$ knife search users "*:*"
-$ knife search users "id:bobo" -a shell
+*Use knife to upload frank's data_bag item(command hidden)*
+<!-- $ knife data_bag from file users frank.json -->
 
-Create a data_bag called 'groups' (2 commands hidden)
-$ mkdir data_bags/groups
-$ knife data_bag create groups
+```$ knife search users "*:*"```
 
+```$ knife search users "id:bobo" -a shell```
+
+*Create a data_bag called 'groups' (2 commands hidden)*
+<!-- $ mkdir data_bags/groups
+$ knife data_bag create groups -->
+
+```ruby
 data_bags/groups/clowns.json
+
 {
   "id": "clowns",
   "gid": 3000,
   "members": [ "bobo", "frank" ]
 }
+```
 
-Use knife to upload the 'clowns' data_bag item (command hidden)
-$ knife data_bag from file groups clowns.json
-$ knife search groups "*:*"
+*Use knife to upload the 'clowns' data_bag item (command hidden)*
+<!-- $ knife data_bag from file groups clowns.json -->
 
-Create a cookbook called 'users' (command hidden)
+```$ knife search groups "*:*"```
 
-$ knife cookbook create users
+*Create a cookbook called 'users' (command hidden)*
+<!-- $ knife cookbook create users -->
 
-Edit the 'user' cookbook's default recipe and add the following 
+- Edit the 'user' cookbook's default recipe and add the following 
+
+```ruby
 cookbooks/users/recipes/default.rb
+
 search(:users, "*:*").each do |user_data|
   user user_data["id"] do
     comment user_data["comment"]
@@ -643,17 +664,22 @@ search(:groups, "*:*").each do |group_data|
     members group_data["members"]
   end
 end
+```
 
-Upload the 'users' cookbook (command hidden)
-$ knife cookbook upload users
-Use knife to add the 'users' cookbook's default receipt to node1's run list (command hidden)
-knife node run_list add node1 'recipe[users]'
-Rerun 'chef-client' on node1 (command hidden)
-opscode@node1:~$ sudo chef-client
-chef@node1:~$ cat /etc/passwd
-chef@node1:~$ cat /etc/group
+*Upload the 'users' cookbook (command hidden)*
+<!-- $ knife cookbook upload users -->
 
-Bonus Exercises
+*Use knife to add the 'users' cookbook's default receipt to node1's run list (command hidden)*
+<!-- knife node run_list add node1 'recipe[users]' -->
+
+*Rerun 'chef-client' on node1 (command hidden)*
+<!-- opscode@node1:~$ sudo chef-client -->
+
+```chef@node1:~$ cat /etc/passwd```
+
+```chef@node1:~$ cat /etc/group```
+
+<!-- Bonus Exercises
 Exercise #1
 Situation:  
 Frank and Bobo have user accounts but no home directories.  (RHEL/CentOS users can skip this exercise.)
@@ -691,9 +717,14 @@ Run “knife data bag from file clowns.json”
 Run “sudo chef-client” on the target
 
 NOTE:  If the student does exercise #2 *before* the encrypted data bags section, make sure they configure a password for Zippy there as well.
- 
-Roles
+ --> 
+
+
+# Roles
+
+```ruby
 roles/webserver.rb
+
 name "webserver"
 description "Web Server"
 run_list "recipe[apache]"
@@ -706,15 +737,18 @@ default_attributes({
     }
   }
 })
+```
 
-$ knife role from file webserver.rb
-$ knife role show webserver
-Use knife to search for roles that have the apache cookbook's default recipe in its run_list (command hidden)
-$ knife search role "run_list:recipe\[apache\]"
+```$ knife role from file webserver.rb```
 
-Replace recipe[apache] with role[webserver] in run list
- 
+```$ knife role show webserver```
 
+*Use knife to search for roles that have the apache cookbook's default recipe in its run_list (command hidden)*
+<!-- $ knife search role "run_list:recipe\[apache\]" -->
+
+- Replace recipe[apache] with role[webserver] in run list
+<image>
+  
 chef@node1:~$ sudo chef-client
 $ knife search node "role:webserver" -a apache.sites
 
